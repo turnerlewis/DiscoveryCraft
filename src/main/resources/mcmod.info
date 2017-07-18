@@ -1,0 +1,16 @@
+[
+{
+  "modid": "tdc",
+  "name": "DiscoveryCraft",
+  "description": "Exploration and adventure awaits you.",
+  "version": "alpha-0.1.0",
+  "mcversion": "1.11.2",
+  "url": "",
+  "updateUrl": "",
+  "authorList": ["turnerlewis"],
+  "credits": "Loremaster for providing a great tutorial!",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]
