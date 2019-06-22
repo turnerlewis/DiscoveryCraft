@@ -1,3 +1,7 @@
 {
-  "block.discoverycraft.dragonstoneblock": "Dragonstone Block"
+  "item.discoverycraft.dragonstone": "Dragonstone",
+  "block.discoverycraft.dragonstoneblock": "Dragonstone Block",
+
+  "_comment": "Creative Tabs",
+  "itemGroup.DiscoveryCraft": "DiscoveryCraft"
 }

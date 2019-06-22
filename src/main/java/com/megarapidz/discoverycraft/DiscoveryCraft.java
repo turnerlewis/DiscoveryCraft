@@ -2,8 +2,10 @@ package com.megarapidz.discoverycraft;
 
 import com.megarapidz.discoverycraft.blocks.DragonstoneBlock;
 import com.megarapidz.discoverycraft.blocks.ModBlocks;
+import com.megarapidz.discoverycraft.items.Dragonstone;
 import com.megarapidz.discoverycraft.setup.ClientProxy;
 import com.megarapidz.discoverycraft.setup.IProxy;
+import com.megarapidz.discoverycraft.setup.ModSetup;
 import com.megarapidz.discoverycraft.setup.ServerProxy;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
@@ -32,6 +34,8 @@ public class DiscoveryCraft {
 
     public static IProxy proxy = DistExecutor.runForDist(() -> () -> new ClientProxy(), () -> () -> new ServerProxy());
 
+    public static ModSetup setup = new ModSetup();
+
     private static final Logger LOGGER = LogManager.getLogger();
 
     public DiscoveryCraft() {
@@ -40,6 +44,8 @@ public class DiscoveryCraft {
     }
 
     private void setup(final FMLCommonSetupEvent event) {
+        setup.init();
+        proxy.init();
     }
 
     // You can use EventBusSubscriber to automatically subscribe events on the contained class (this is subscribing to the MOD
@@ -54,7 +60,10 @@ public class DiscoveryCraft {
 
         @SubscribeEvent
         public static void onItemsRegistry(final RegistryEvent.Register<Item> event) {
-            event.getRegistry().register(new BlockItem(ModBlocks.DRAGONSTONEBLOCK, new Item.Properties()).setRegistryName("dragonstoneblock"));
+            Item.Properties properties = new Item.Properties()
+                .group(setup.itemGroup);
+            event.getRegistry().register(new BlockItem(ModBlocks.DRAGONSTONEBLOCK, properties).setRegistryName("dragonstoneblock"));
+            event.getRegistry().register(new Dragonstone());
 
         }
     }
