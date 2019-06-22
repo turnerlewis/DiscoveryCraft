@@ -1,5 +1,6 @@
 package com.megarapidz.discoverycraft;
 
+import com.megarapidz.discoverycraft.blocks.ArcaneTable;
 import com.megarapidz.discoverycraft.blocks.DragonstoneBlock;
 import com.megarapidz.discoverycraft.blocks.ModBlocks;
 import com.megarapidz.discoverycraft.items.Dragonstone;
@@ -55,6 +56,7 @@ public class DiscoveryCraft {
         @SubscribeEvent
         public static void onBlocksRegistry(final RegistryEvent.Register<Block> event) {
             event.getRegistry().register(new DragonstoneBlock());
+            event.getRegistry().register(new ArcaneTable());
 
         }
 
@@ -63,6 +65,7 @@ public class DiscoveryCraft {
             Item.Properties properties = new Item.Properties()
                 .group(setup.itemGroup);
             event.getRegistry().register(new BlockItem(ModBlocks.DRAGONSTONEBLOCK, properties).setRegistryName("dragonstoneblock"));
+            event.getRegistry().register(new BlockItem(ModBlocks.ARCANETABLE, properties).setRegistryName("arcanetable"));
             event.getRegistry().register(new Dragonstone());
 
         }
