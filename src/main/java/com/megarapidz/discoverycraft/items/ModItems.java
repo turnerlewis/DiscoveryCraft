@@ -1,11 +1,16 @@
 package com.megarapidz.discoverycraft.items;
 
 import net.minecraftforge.registries.ObjectHolder;
+import net.minecraft.item.Item;
 
 public class ModItems {
+
+    // Items
     @ObjectHolder("discoverycraft:dragonstone")
     public static Dragonstone DRAGONSTONE;
 
+
+    // Tools
     @ObjectHolder("discoverycraft:dragonstoneaxe")
     public static DragonstoneAxe DRAGONSTONEAXE;
 
@@ -17,4 +22,5 @@ public class ModItems {
 
     @ObjectHolder("discoverycraft:dragonstonegreatsword.json")
     public static DragonstoneGreatsword DRAGONSTONEGREATSWORD;
+
 }

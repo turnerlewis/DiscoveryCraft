@@ -8,4 +8,7 @@ public class ModBlocks {
 
     @ObjectHolder("discoverycraft:arcanetable")
     public static ArcaneTable ARCANETABLE;
+
+    @ObjectHolder("discoverycraft:dragonstoneore")
+    public static DragonstoneBlock DRAGONSTONEORE;
 }

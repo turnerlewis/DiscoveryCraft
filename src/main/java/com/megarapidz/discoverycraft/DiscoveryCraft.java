@@ -2,16 +2,19 @@ package com.megarapidz.discoverycraft;
 
 import com.megarapidz.discoverycraft.blocks.ArcaneTable;
 import com.megarapidz.discoverycraft.blocks.DragonstoneBlock;
+import com.megarapidz.discoverycraft.blocks.DragonstoneOre;
 import com.megarapidz.discoverycraft.blocks.ModBlocks;
 import com.megarapidz.discoverycraft.items.*;
 import com.megarapidz.discoverycraft.setup.ClientProxy;
 import com.megarapidz.discoverycraft.setup.IProxy;
 import com.megarapidz.discoverycraft.setup.ModSetup;
 import com.megarapidz.discoverycraft.setup.ServerProxy;
+import com.megarapidz.discoverycraft.world.OreGeneration;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
+import net.minecraft.item.PickaxeItem;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -47,6 +50,7 @@ public class DiscoveryCraft {
     private void setup(final FMLCommonSetupEvent event) {
         setup.init();
         proxy.init();
+        OreGeneration.setupOreGeneration();
     }
 
     // You can use EventBusSubscriber to automatically subscribe events on the contained class (this is subscribing to the MOD
@@ -57,6 +61,7 @@ public class DiscoveryCraft {
         public static void onBlocksRegistry(final RegistryEvent.Register<Block> event) {
             event.getRegistry().register(new DragonstoneBlock());
             event.getRegistry().register(new ArcaneTable());
+            event.getRegistry().register(new DragonstoneOre());
 
         }
 
@@ -66,6 +71,7 @@ public class DiscoveryCraft {
                 .group(setup.itemGroup);
             event.getRegistry().register(new BlockItem(ModBlocks.DRAGONSTONEBLOCK, properties).setRegistryName("dragonstoneblock"));
             event.getRegistry().register(new BlockItem(ModBlocks.ARCANETABLE, properties).setRegistryName("arcanetable"));
+            event.getRegistry().register(new BlockItem(ModBlocks.DRAGONSTONEORE, properties).setRegistryName("dragonstoneore"));
             event.getRegistry().register(new Dragonstone());
             event.getRegistry().register(new DragonstoneAxe());
             event.getRegistry().register(new DragonstonePickaxe());
