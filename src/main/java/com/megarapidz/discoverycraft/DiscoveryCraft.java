@@ -3,7 +3,7 @@ package com.megarapidz.discoverycraft;
 import com.megarapidz.discoverycraft.blocks.ArcaneTable;
 import com.megarapidz.discoverycraft.blocks.DragonstoneBlock;
 import com.megarapidz.discoverycraft.blocks.ModBlocks;
-import com.megarapidz.discoverycraft.items.Dragonstone;
+import com.megarapidz.discoverycraft.items.*;
 import com.megarapidz.discoverycraft.setup.ClientProxy;
 import com.megarapidz.discoverycraft.setup.IProxy;
 import com.megarapidz.discoverycraft.setup.ModSetup;
@@ -67,6 +67,10 @@ public class DiscoveryCraft {
             event.getRegistry().register(new BlockItem(ModBlocks.DRAGONSTONEBLOCK, properties).setRegistryName("dragonstoneblock"));
             event.getRegistry().register(new BlockItem(ModBlocks.ARCANETABLE, properties).setRegistryName("arcanetable"));
             event.getRegistry().register(new Dragonstone());
+            event.getRegistry().register(new DragonstoneAxe());
+            event.getRegistry().register(new DragonstonePickaxe());
+            event.getRegistry().register(new DragonstoneShovel());
+            event.getRegistry().register(new DragonstoneGreatsword());
 
         }
     }

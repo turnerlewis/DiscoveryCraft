@@ -1,5 +1,9 @@
 {
   "item.discoverycraft.dragonstone": "Dragonstone",
+  "item.discoverycraft.dragonstoneaxe": "Dragonstone Axe",
+  "item.discoverycraft.dragonstonepickaxe": "Dragonstone Pickaxe",
+  "item.discoverycraft.dragonstoneshovel": "Dragonstone Shovel",
+  "item.discoverycraft.dragonstonegreatsword": "Dragonstone Greatsword",
   "block.discoverycraft.dragonstoneblock": "Dragonstone Block",
   "block.discoverycraft.arcanetable": "Arcane Table",
 
