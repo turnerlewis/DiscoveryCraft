@@ -9,6 +9,6 @@ public class DragonstoneGreatsword extends Item {
         super(new Item.Properties()
                 .maxStackSize(1)
                 .group(DiscoveryCraft.setup.itemGroup));
-        setRegistryName("dragonstonegreatsword.json");
+        setRegistryName("dragonstonegreatsword");
     }
 }

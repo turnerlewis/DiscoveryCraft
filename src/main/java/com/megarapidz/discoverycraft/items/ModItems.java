@@ -20,7 +20,7 @@ public class ModItems {
     @ObjectHolder("discoverycraft:dragonstoneshovel")
     public static DragonstoneShovel DRAGONSTONESHOVEL;
 
-    @ObjectHolder("discoverycraft:dragonstonegreatsword.json")
+    @ObjectHolder("discoverycraft:dragonstonegreatsword")
     public static DragonstoneGreatsword DRAGONSTONEGREATSWORD;
 
 }

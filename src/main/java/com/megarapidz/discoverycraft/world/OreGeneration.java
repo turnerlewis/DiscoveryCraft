@@ -14,7 +14,7 @@ public class OreGeneration {
     {
         for(Biome biome : ForgeRegistries.BIOMES)
         {
-            biome.addFeature(GenerationStage.Decoration.UNDERGROUND_ORES, Biome.func_222280_a(Feature.MINABLE, new OreFeatureConfig(OreFeatureConfig.FillerBlockType.NATURAL_STONE, ModBlocks.DRAGONSTONEORE.getDefaultState(), 20), Placement.field_215028_n, new CountRangeConfig(6, 10, 10, 40)));
+//            biome.addFeature(GenerationStage.Decoration.UNDERGROUND_ORES, Biome.func_222280_a(Feature.MINABLE, new OreFeatureConfig(OreFeatureConfig.FillerBlockType.NATURAL_STONE, ModBlocks.DRAGONSTONEORE.getDefaultState(), 20), Placement.field_215028_n, new CountRangeConfig(6, 10, 10, 40)));
         }
     }
 

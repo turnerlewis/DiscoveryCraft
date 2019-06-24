@@ -10,5 +10,5 @@ public class ModBlocks {
     public static ArcaneTable ARCANETABLE;
 
     @ObjectHolder("discoverycraft:dragonstoneore")
-    public static DragonstoneBlock DRAGONSTONEORE;
+    public static DragonstoneOre DRAGONSTONEORE;
 }

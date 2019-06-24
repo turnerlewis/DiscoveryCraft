@@ -10,7 +10,7 @@ public class DragonstoneOre extends Block {
         super(Properties.create(Material.ROCK)
                 .sound(SoundType.STONE)
                 .hardnessAndResistance(2.0f)
-                .lightValue(14)
+                .lightValue(0)
         );
         setRegistryName("dragonstoneore");
     }

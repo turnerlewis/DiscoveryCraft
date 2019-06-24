@@ -50,7 +50,7 @@ public class DiscoveryCraft {
     private void setup(final FMLCommonSetupEvent event) {
         setup.init();
         proxy.init();
-        OreGeneration.setupOreGeneration();
+//        OreGeneration.setupOreGeneration();
     }
 
     // You can use EventBusSubscriber to automatically subscribe events on the contained class (this is subscribing to the MOD
