@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "###",
+    "###",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "discoverycraft:dragonstone"
+    }
+  },
+  "result": {
+    "item": "discoverycraft:dragonstoneblock"
+  }
+}
