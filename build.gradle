@@ -1,131 +1,83 @@
-buildscript {
-    repositories {
-        maven { url = 'https://files.minecraftforge.net/maven' }
-        jcenter()
-        mavenCentral()
-    }
-    dependencies {
-        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '3.+', changing: true
-    }
+//file:noinspection GroovyAssignabilityCheck
+plugins {
+  id "org.quiltmc.loom" version "0.12.+"
+  id "org.quiltmc.gradle.licenser" version "1.+"
+  id "com.modrinth.minotaur" version "2.+"
+  id "maven-publish"
 }
-apply plugin: 'net.minecraftforge.gradle'
-// Only edit below this line, the above code adds and enables the necessary things for Forge to be setup.
-apply plugin: 'eclipse'
-apply plugin: 'maven-publish'
 
-version = '1.0'
-group = 'com.megarapidz.discoverycraft' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
-archivesBaseName = 'discoverycraft'
+archivesBaseName = "discoverycraft"
+version = "$loom.modVersion+$minecraft_version"
 
-sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '1.8' // Need this here so eclipse task generates correctly.
-
-minecraft {
-    // The mappings can be changed at any time, and must be in the following format.
-    // snapshot_YYYYMMDD   Snapshot are built nightly.
-    // stable_#            Stables are built at the discretion of the MCP team.
-    // Use non-default mappings at your own risk. they may not always work.
-    // Simply re-run your setup task after changing the mappings to update your workspace.
-    mappings channel: 'snapshot', version: '1.19-20220607.102129'
-    // makeObfSourceJar = false // an Srg named sources jar is made by default. uncomment this to disable.
-    
-    // accessTransformer = file('build/resources/main/META-INF/accesstransformer.cfg')
-
-    // Default run configurations.
-    // These can be tweaked, removed, or duplicated as needed.
-    runs {
-        client {
-            workingDirectory project.file('run')
-
-            // Recommended logging data for a userdev environment
-            property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
-
-            // Recommended logging level for the console
-            property 'forge.logging.console.level', 'debug'
-
-            mods {
-                examplemod {
-                    source sourceSets.main
-                }
-            }
-        }
-
-        server {
-            workingDirectory project.file('run')
-
-            // Recommended logging data for a userdev environment
-            property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
-
-            // Recommended logging level for the console
-            property 'forge.logging.console.level', 'debug'
-
-            mods {
-                examplemod {
-                    source sourceSets.main
-                }
-            }
-        }
-    }
+repositories {
+  mavenLocal()
+  maven { url "https://maven.terraformersmc.com" }
+  maven { url "https://api.modrinth.com/maven" }
 }
 
 dependencies {
-    // Specify the version of Minecraft to use, If this is any group other then 'net.minecraft' it is assumed
-    // that the dep is a ForgeGradle 'patcher' dependency. And it's patches will be applied.
-    // The userdev artifact is a special name and will get all sorts of transformations applied to it.
-    minecraft 'net.minecraftforge:forge:1.19-41.0.38'
+  minecraft "com.mojang:minecraft:$minecraft_version"
+  mappings(loom.layered {addLayer quiltMappings.mappings(
+    "org.quiltmc:quilt-mappings:$minecraft_version+build.$quilt_mappings:v2"
+  )})
+  modImplementation "org.quiltmc:quilt-loader:$loader_version"
+  modImplementation "org.quiltmc:qsl:$qsl_version+$minecraft_version-SNAPSHOT"
+  modImplementation include("maven.modrinth:midnightlib:$midnightlib_version")
+  modImplementation("com.terraformersmc:modmenu:$modmenu_version") { transitive = false }
 
-    // You may put jars on which you depend on in ./libs or you may define them like so..
-    // compile "some.group:artifact:version:classifier"
-    // compile "some.group:artifact:version"
-
-    // Real examples
-    // compile 'com.mod-buildcraft:buildcraft:6.0.8:dev'  // adds buildcraft to the dev env
-    // compile 'com.googlecode.efficient-java-matrix-library:ejml:0.24' // adds ejml to the dev env
-
-    // The 'provided' configuration is for optional dependencies that exist at compile-time but might not at runtime.
-    // provided 'com.mod-buildcraft:buildcraft:6.0.8:dev'
-
-    // These dependencies get remapped to your current MCP mappings
-    // deobf 'com.mod-buildcraft:buildcraft:6.0.8:dev'
-
-    // For more info...
-    // http://www.gradle.org/docs/current/userguide/artifact_dependencies_tutorial.html
-    // http://www.gradle.org/docs/current/userguide/dependency_management.html
-
+  // Fabric API modules required for dependencies
+  ["lifecycle-events-v1", "renderer-registries-v1", "resource-loader-v0", "screen-api-v1"].forEach {
+    modRuntimeOnly "org.quiltmc.quilted-fabric-api:fabric-$it:${qfapi_version}-${minecraft_version}"
+  }
 }
 
-// Example for how to get properties into the manifest for reading by the runtime..
-jar {
-    manifest {
-        attributes([
-            "Specification-Title": "discoverycraft",
-            "Specification-Vendor": "discoverycraftvendor",
-            "Specification-Version": "1", // We are version 1 of ourselves
-            "Implementation-Title": project.name,
-            "Implementation-Version": "${version}",
-            "Implementation-Vendor" :"discoverycraftvendor",
-            "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
-        ])
-    }
+idea { module { downloadJavadoc = false } }
+
+tasks.withType(JavaCompile).forEach {
+  it.options.encoding = "UTF-8"
+  it.options.release.set(17)
+  it.sourceCompatibility = 17
 }
 
-// Example configuration to allow publishing using the maven-publish task
-// we define a custom artifact that is sourced from the reobfJar output task
-// and then declare that to be published
-// Note you'll need to add a repository here
-def reobfFile = file("$buildDir/reobfJar/output.jar")
-def reobfArtifact = artifacts.add('default', reobfFile) {
-    type 'jar'
-    builtBy 'reobfJar'
+jar { from("LICENSE", "README.md") }
+
+license {
+  rule "HEADER"
+  include "**/*.java"
 }
+
+import com.modrinth.minotaur.dependencies.ModDependency
+modrinth {
+  projectId = "VPU6VYVP"
+  uploadFile = remapJar
+  dependencies = [
+    new ModDependency("qvIfYCYJ", "required"),
+    new ModDependency("P7dR8mSH", "incompatible"),
+  ]
+  changelog = """
+**INSERT CHANGELOG HERE**
+"""
+}
+
+java { withSourcesJar() }
+
 publishing {
-    publications {
-        mavenJava(MavenPublication) {
-            artifact reobfArtifact
-        }
+  publications {
+    mavenJava(MavenPublication) {
+      groupId = 'megarapidz.waddon1'
+      artifactId = archivesBaseName
+      version = version
+      from components.java
     }
-    repositories {
-        maven {
-            url "file:///${project.projectDir}/mcmodsrepo"
-        }
+  }
+  repositories {
+    maven {
+      url = System.getenv().MAVEN_URL
+      credentials {
+        username = System.getenv().MAVEN_USER
+        password = System.getenv().MAVEN_PASS
+      }
+      authentication { basic(BasicAuthentication) }
     }
+  }
 }

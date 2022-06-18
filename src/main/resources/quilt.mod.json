@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "quilt_loader": {
+    "group": "megarapidz.waddon1",
+    "id": "DiscoveryCraft",
+    "provides": [ "discoverycraft" ],
+    "version": "1.0.0",
+    "entrypoints": {
+      "client_init": "megarapidz.waddon1.DC.DiscoveryCraftClientInit"
+    },
+    "depends": [
+      "minecraft",
+      "quilt_loader",
+      "quilt_resource_loader",
+      {
+        "id": "midnightlib",
+        "version": ">=0.5.0",
+        "reason": "Config library"
+      },
+      {
+        "id": "modmenu",
+        "reason": "For actually configuring stuff",
+        "optional": true
+      }
+    ],
+    "intermediate_mappings": "net.fabricmc:intermediary",
+    "metadata": {
+      "name": "DiscoveryCraft",
+      "description": "Make Minecraft Mods Fun Again",
+      "contributors": {
+        "waddon1": "Owner",
+        "megarapidz": "Owner"
+      },
+      "contact": {
+        "email": "",
+        "homepage": "",
+        "issues": "https://github.com/turnerlewis/DiscoveryCraft",
+        "sources": "https://github.com/turnerlewis/DiscoveryCraft",
+        "discord": ""
+      },
+      "license": "LGPL3",
+      "icon": "assets/discoverycraf/icon.png"
+    }
+  },
+  "mixin": [
+    "discoverycraft.mixins.json"
+  ],
+  "minecraft": {
+    "environment": "client"
+  }
+}

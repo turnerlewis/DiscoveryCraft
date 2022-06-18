@@ -1,0 +1,13 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "discoverycraft.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "client": [
+    "DrawableHelperAccessor",
+    "SplashOverlayMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
