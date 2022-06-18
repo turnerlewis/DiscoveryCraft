@@ -48,7 +48,7 @@ license {
 
 import com.modrinth.minotaur.dependencies.ModDependency
 modrinth {
-  projectId = "VPU6VYVP"
+  projectId = "placeholder"
   uploadFile = remapJar
   dependencies = [
     new ModDependency("qvIfYCYJ", "required"),
