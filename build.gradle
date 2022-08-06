@@ -48,14 +48,14 @@ license {
 
 import com.modrinth.minotaur.dependencies.ModDependency
 modrinth {
-  projectId = "placeholder"
+  projectId = ""
   uploadFile = remapJar
   dependencies = [
-    new ModDependency("qvIfYCYJ", "required"),
-    new ModDependency("P7dR8mSH", "incompatible"),
+    new ModDependency("", "required"),
+    new ModDependency("", "incompatible"),
   ]
   changelog = """
-**INSERT CHANGELOG HERE**
+**The first release on 1.19.2**
 """
 }
 
@@ -64,7 +64,7 @@ java { withSourcesJar() }
 publishing {
   publications {
     mavenJava(MavenPublication) {
-      groupId = 'megarapidz.waddon1'
+      groupId = 'discovery.craft'
       artifactId = archivesBaseName
       version = version
       from components.java
