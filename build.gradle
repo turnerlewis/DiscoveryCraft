@@ -1,83 +1,57 @@
-//file:noinspection GroovyAssignabilityCheck
 plugins {
-  id "org.quiltmc.loom" version "0.12.+"
-  id "org.quiltmc.gradle.licenser" version "1.+"
-  id "com.modrinth.minotaur" version "2.+"
-  id "maven-publish"
+    id 'fabric-loom' version '1.5-SNAPSHOT'
+    id 'maven-publish'
 }
 
-archivesBaseName = "discoverycraft"
-version = "$loom.modVersion+$minecraft_version"
+version = '1.0.0'
+group = 'discovery.craft'
+archivesBaseName = 'discoverycraft'
 
 repositories {
-  mavenLocal()
-  maven { url "https://maven.terraformersmc.com" }
-  maven { url "https://api.modrinth.com/maven" }
+    maven {
+        name = 'Fabric'
+        url = 'https://maven.fabricmc.net/'
+    }
+    // Keep any other necessary repositories
+    maven { url "https://maven.terraformersmc.com" }
+    maven { url "https://api.modrinth.com/maven" }
 }
 
 dependencies {
-  minecraft "com.mojang:minecraft:$minecraft_version"
-  mappings(loom.layered {addLayer quiltMappings.mappings(
-    "org.quiltmc:quilt-mappings:$minecraft_version+build.$quilt_mappings:v2"
-  )})
-  modImplementation "org.quiltmc:quilt-loader:$loader_version"
-  modImplementation "org.quiltmc:qsl:$qsl_version+$minecraft_version-SNAPSHOT"
-  modImplementation include("maven.modrinth:midnightlib:$midnightlib_version")
-  modImplementation("com.terraformersmc:modmenu:$modmenu_version") { transitive = false }
-
-  // Fabric API modules required for dependencies
-  ["lifecycle-events-v1", "renderer-registries-v1", "resource-loader-v0", "screen-api-v1"].forEach {
-    modRuntimeOnly "org.quiltmc.quilted-fabric-api:fabric-$it:${qfapi_version}-${minecraft_version}"
-  }
+    minecraft "com.mojang:minecraft:1.21.1"
+    mappings "net.fabricmc:yarn:1.21.1+build.1:v2"
+    modImplementation "net.fabricmc:fabric-loader:0.15.7"
+    modImplementation "net.fabricmc.fabric-api:fabric-api:0.96.11+1.21.1"
+    
+    // ModMenu for Fabric
+    modImplementation "com.terraformersmc:modmenu:9.0.0"
+    
+    // Keep MidnightLib if needed (update version as needed)
+    modImplementation include("maven.modrinth:midnightlib:1.5.0-fabric")
 }
 
-idea { module { downloadJavadoc = false } }
+processResources {
+    inputs.property "version", project.version
+    filteringCharset "UTF-8"
 
-tasks.withType(JavaCompile).forEach {
-  it.options.encoding = "UTF-8"
-  it.options.release.set(17)
-  it.sourceCompatibility = 17
-}
-
-jar { from("LICENSE", "README.md") }
-
-license {
-  rule "HEADER"
-  include "**/*.java"
-}
-
-import com.modrinth.minotaur.dependencies.ModDependency
-modrinth {
-  projectId = ""
-  uploadFile = remapJar
-  dependencies = [
-    new ModDependency("", "required"),
-    new ModDependency("", "incompatible"),
-  ]
-  changelog = """
-**The first release on 1.19.2**
-"""
-}
-
-java { withSourcesJar() }
-
-publishing {
-  publications {
-    mavenJava(MavenPublication) {
-      groupId = 'discovery.craft'
-      artifactId = archivesBaseName
-      version = version
-      from components.java
+    filesMatching("fabric.mod.json") {
+        expand "version": project.version
     }
-  }
-  repositories {
-    maven {
-      url = System.getenv().MAVEN_URL
-      credentials {
-        username = System.getenv().MAVEN_USER
-        password = System.getenv().MAVEN_PASS
-      }
-      authentication { basic(BasicAuthentication) }
+}
+
+tasks.withType(JavaCompile).configureEach {
+    it.options.encoding = "UTF-8"
+    it.options.release = 17
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+    withSourcesJar()
+}
+
+jar {
+    from("LICENSE", "README.md") {
+        rename { "${it}_${archivesBaseName}" }
     }
-  }
 }
